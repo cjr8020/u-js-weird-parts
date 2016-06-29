@@ -1,0 +1,67 @@
+
+keyboard shortcuts:
+
+
+https://gist.github.com/chrissimpkins/5bf5686bae86b8129bee
+
+============================================================
+
+Command Palette
+
+	Ctrl-Shift-P
+
+============================================================
+
+$ atom <folder_name>
+
+$ atom <file_name>
+
+============================================================
+
+Q: How to make atom show the getting started guide at every startup?
+
+A: You can put this in your ~/.atom/init.coffee:
+
+atom.config.set 'welcome.showOnStartup', true
+
+============================================================
+
+	Jump out of quotes, brackets and parenthesis
+	********************************************
+
+http://stackoverflow.com/questions/30274597/jump-over-end-parenthesis-bracket-quotation-in-atom-editor-with-tab
+
+
+ctrl-shift-J as key
+
+
+Step 1: Go to the file menu and select 'Open Your Init Script', then paste the following code into the file. This defines a command that can move the cursor forward, jumping over a single bracket, brace, or quotation mark.
+
+SymbolRegex = /\s*[(){}<>[\]/'"]/
+atom.commands.add 'atom-text-editor', 'custom:jump-over-symbol': (event) ->
+  editor = atom.workspace.getActiveTextEditor()
+  cursorMoved = false
+  for cursor in editor.getCursors()
+    range = cursor.getCurrentWordBufferRange(wordRegex: SymbolRegex)
+    unless range.isEmpty()
+      cursor.setBufferPosition(range.end)
+      cursorMoved = true
+  event.abortKeyBinding() unless cursorMoved
+
+Step 2: open your keymap [keymap.scon] and enter a keybinding for the new command:
+
+'atom-text-editor:not([mini])':
+  'ctrl-shift-J': 'custom:jump-over-symbol'
+
+==========================================================
+
+    disable spellcheck for specific file
+    ************************************
+
+Packages > Spell Check > Toggle
+
+Or permanently,
+
+Settings > Packages > search "spell-check"
+
+===========================================================
