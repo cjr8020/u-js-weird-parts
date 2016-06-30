@@ -1,11 +1,5 @@
 #### this app ####
 
-# contains JS source compiled from typescipt
-app
-# contains compiled css
-src
-
-
 node_modules
 dist
 .tmp
