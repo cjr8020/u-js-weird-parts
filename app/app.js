@@ -14,3 +14,6 @@ document.addEventListener('click', clickHandler);
 
 waitThreeSeconds();
 console.log('finished execution');
+
+var person = new Object();
+person.["firstname"];

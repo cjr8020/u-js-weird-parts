@@ -83,3 +83,113 @@ the JS engine is single threaded/synchronous
 - event queue
 NOTE: the JS engine processes the Event Queue only when its execution stack is empty.  
 ==========================================================================
+    dynamic typing
+    **************
+the types of data stored in variables is figured out dynamically at runtime
+
+    primitive types
+    ---------------
+- something not an object
+undefined
+null (you should use 'null' instead of 'underfined)
+boolean (true|false)
+number (is a floating point number with decimals!)
+string
+symbol (used in ES6)
+
+==========================================================================
+    operators
+    *********
+    
+operators are special functions written differently syntactically.  
+
+associativity = when functions/operators have the same precedence, what order will they be called?
+left-to-right
+right-to-left
+
+    Coercion
+    --------
+    
+converting a value from one type to another.    
+
+    comparison
+    ----------
+
+==  operator could have strange outcome due to coercion
+'3' == 3
+true
+=== strict equality, does not allow coercion
+'3' === 3
+false
+
+use === unless you want coercion
+
+==========================================================================
+    default values
+    **************
+
+function greet(name) {
+    name = name || '<Your name here>';
+    console.log('Hello' + name);
+}
+
+// what happens if you call greet() without parameter?
+greet();
+
+Nothing will be passed into this function.  JS simply ignores that the function has been called without parameters.  "undefined" will be coerced to  string in this context.
+
+ES6 will introduce syntax to set default values.
+
+Currently, this trick is in wide use:
+
+    name = name || '<Your name here>';
+    
+NOTE: need to be careful about value '0' as it will evaluate to "false" .. in case zero is indeed a valid value.    
+
+==========================================================================
+    objects and functions
+    *********************
+    
+Objects can have:
+- properties
+    - primitive value property
+    - object property
+- methods
+    - function "method"
+
+var person = new Object();
+
+person.["firstname"];  // computed member access operator '[]'
+var firstNameProperty = 'firstname';
+person.[firstNameProperty]; 
+
+person["address"]["state"];
+person.address.state;
+
+    Object Literals
+    ---------------
+    
+var person = {}; // same as new Object();
+
+person = {
+    firsname: 'Tony',
+    lastname: 'Alicea'
+};
+
+function greet(person) {
+    console.log('Hi' + person.firstname);
+}
+// inline object literal creation
+greet({
+    firstname: 'Mary',
+    lastname: 'Doe'
+});
+
+
+
+
+
+
+==========================================================================
+
+
