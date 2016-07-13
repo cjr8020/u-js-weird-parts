@@ -185,6 +185,23 @@ greet({
     lastname: 'Doe'
 });
 
+    Execution Context
+    -----------------
+    
+When a function is invoked, a new Execution Context is created.    
+The function object has 
+- name property
+- code property
+What happens when I run the code in the 'code' property?  The following is created:
+- variable environment
+- reference to outer environemnt (lexical context)
+- 'this'
+
+'this' will be poining at different things at different times.
+
+console.log(this);  // will display "Window" object
+
+
 ==========================================================================
     faking namespace
     *****************
