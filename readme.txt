@@ -197,10 +197,65 @@ What happens when I run the code in the 'code' property?  The following is creat
 - reference to outer environemnt (lexical context)
 - 'this'
 
+    this
+    ----
+
+
 'this' will be poining at different things at different times.
 
-console.log(this);  // will display "Window" object
+console.log(this);  // will display "Window" object 
+                    // because inside the browser Window is the Global object
+                    
+                    
+function a() {
+    console.log(this);
+    this.newvariable = 'hello'; // variable attached to global context
+}
+a(); // this will also display 'Window' object - the global object
+     // because the function is created in the Global context
+     
+var b = function () {
+    console.log(this.newvariable);  // variable attached to global context
+}     
 
+b();
+
+    'this' in object literal
+    -------------------------
+    
+withing an object, 'this' is pointing to the object.. but ONLY at the first inner level!!    
+    
+var c = {
+    name: 'The c object',
+    log: function() {
+        console.log(this);
+        // *** this "internal" function has its 'this' property pointing to the GlOBAL object
+        var setname = function(newname) {
+            this.name = newname;  // *** this 'this' is pointing to GLOBAL object ***
+        }
+        setname('Updated again! the C object');
+        console.log(this);        
+    }
+}
+c.log();  // 'this' is now pointing to "The c object"    
+
+    pattern for consistent 'this' pointer
+    --------------------------------------
+    
+        var self = this;
+        
+    This allows us to get consistent use of 'this' regardless of where within a function it is being referenced
+    
+        log: function () {
+            var self = this;
+            console.log(self);
+
+            var setname = function (newname) {
+                self.name = newname;
+            }
+            setname('Updated again! the C object');
+            console.log(self);
+        }    
 
 ==========================================================================
     faking namespace
@@ -213,6 +268,115 @@ english.greet = 'Hello!';
 spanish.greet = 'Hola!';
 
 ==========================================================================
+    
+    Arrays
+    ******
+    
+var arr = [1,2,3];
+arr[0];
+var mixmatcharray = [
+    1,
+    false,
+    {
+        name: 'Tony',
+        address: '111 Main St'
+    },
+    function(name) {
+        var greeting = 'Hello, ';
+        console.log(greeting + name);
+    },
+    "hello"
+]
+
+console.log(mixmatcharray);
+arr[3](arr[2].name);
 
 
+==========================================================================
+    
+    'arguments' and spread
+    **********************
+        
+'arguments' is a keyword set up in the execution context of a function:
 
+Execution Context created for a function:
+
+    1. variable environment
+    2. 'this'
+    3. outer environment
+    4. 'arguments'
+
+'arguments' holds all the parameters that have been passed into your function:
+
+
+function greet(firstname, lastname, language) {
+    console.log(firstname);
+    console.log(lastname);
+    console.log(language);
+}
+
+greet();  // this will print 'undefined' for all three - javascript does not care .. 
+
+greet('Tony'); // this prints 'Tony', 'undefined', 'undefined'
+
+In ES6, you will be able to declare a default value:
+
+function greet(firstname, lastname, language = 'en') {
+}
+
+Until ES6 is supported in all browsers, this is the way to define defaults:
+
+function greet(firstname, lastname, language) {
+    language = language || 'en';
+}
+
+
+function greet(firstname, lastname, language) {
+    console.log(arguments); // prints '[]' like an Array, although it is not quite an array...
+    if (arguments.length === 0) {
+        console.log('Missing parameters!');
+        return;
+    }
+    ...
+    console.log('arg 0: ' + arguments[0]);
+}
+greet();   // prings "missing arguments"..
+    
+
+    spread (ES6)
+    ------
+        
+function greet(firstname, lastname, language, ...other) {
+    
+}
+greet('John', 'Doe', 'en', '111 Main St'); // the extra parameters will be placed into
+                                            // the spread array
+
+==========================================================================
+
+    syntax parser and semicolons (;)
+    --------------------------------
+        
+The javascript syntax parser reads code character by charecter .. and can insert characters before your code is run!
+    
+    Automatic semicolon insertion
+    
+Semicolons (;) can be inserted if they are missing.. but the JavaScript parser can get it WRONG.  
+
+function getPerson() {
+    return  // the JavaScript parser will automatically insert ; here!
+    {
+        firstname: 'Tony'
+    }
+}
+
+but this version will be fine:
+
+function getPerson() {
+    return {  // with the brace on the same line, the auto semicolon insertion will not happen..
+        firstname: 'Tony'
+    }
+}
+
+
+==========================================================================
