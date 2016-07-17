@@ -458,6 +458,24 @@ IIFE:
     }(firstname)); // IIFE
 
 
+    
+    IIFEs and Safe Code
+    -------------------
+   
+Global Execution Context  is created.  
+Once the parser gets to the IIFE - it creates a new execution context for the anonymous function.  'Hello' variable goes into the IIFE's execution context.
+
+Wrapping your code inside an IIFE ensures that everything declared inside your funtion is protected within its own execution context - so there will be no collisions with the global space.
+
+If I want access to the global object, I will just pass it into my function:
+
+(function (global, name){
+    // to something with global
+    global.blah = 'just messing with you';
+}(window, 'John'));  // IIFE .. 'window' is the global obj in browser.
+
+
+
 
 ==========================================================================
 
