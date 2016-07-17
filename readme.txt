@@ -380,3 +380,97 @@ function getPerson() {
 
 
 ==========================================================================
+
+    Immediately Invoked Function Expressions (IIFE)s
+    ************************************************
+    
+Function statements
+-------------------
+
+    function greet(name) {
+        console.log('Hello ' + name);
+    }
+
+a function statement is not going to do anything until you execute it:
+
+    greet();
+
+
+Function expressions
+--------------------
+
+    // function expression
+    var greetFunc = function(name) {
+    console.log('Hell ' + nane);
+    };
+    greetFunc();
+
+What can we do with functions?
+"code" property - we can invoke it!
+we can invoke it on the fly.  What do we need? Parenthesis!
+
+    // this invokes the function immediately after creating it
+    var greeting = function(name){
+        console.log('Hello ' + name);
+    }();
+
+
+var greeting will have the function object.
+
+however, if the function returned value, then 
+
+var "greeting" will have the outcome of the funciton invocation.
+
+// valid JavaScript expressions
+3;
+"I am a string";
+{
+    name: 'John'
+};
+
+// Syntax error: unexpected token (
+function(name){
+return 'Hello ' + name;
+}
+
+Function declared that way needs to have a NAME - when the parser sees the word 'function' at the start of the line, it exptects the function to have a name..
+
+How do we trick the Syntax parcer that I just want a function statement?
+The most common way is to wrap the function into parenthesis:
+
+(function(name){
+    return 'Hello ' + name;
+});
+
+I can also invoke it:
+
+    (function(name){
+        var greeting = 'Hello';
+        console.log(greeting + ' ' + name);
+    }());
+
+IIFE:
+
+    var firstname = 'John';
+    (function(name){
+        var greeting = 'Inside IIFE: Hello';
+        console.log(greeting + ' ' + name);
+    }(firstname)); // IIFE
+
+
+
+==========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
