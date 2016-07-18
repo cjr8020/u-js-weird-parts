@@ -475,6 +475,138 @@ If I want access to the global object, I will just pass it into my function:
 }(window, 'John'));  // IIFE .. 'window' is the global obj in browser.
 
 
+===========================================================
+
+    Closures
+    ********
+    
+Suppose you have a function that returns a function.
+
+
+    function greet(whattosay){
+
+        return function(name){
+        console.log(whattosay + ' ' + name);
+        }
+    }
+
+    // we are invoking a function that returns a funciton and we immediately calling that function..
+    var sayHi = greet('Hi')('Tony');
+    
+    
+To modify the example a little bit:
+
+
+// we are invoking a function that returns a funciton
+// saving the returned function to a variable
+var sayHi = greet('Hi');
+
+// ... and then invoking that function.
+sayHi('Tony');
+
+!! Q: how does the invoked function still know the value of 'whattosay' variable?
+'whattosay' was created within the function when it was declared.. 
+
+        ()
+        'sayHi' execution context
+                    name 'Tony'
+
+        greet()
+        Execution Context
+                    whattosay 'Hi'
+
+        Global Execution Context
+        
+Every execution context has memory space where all the variables are kept.
+However, if there are references to variables, this memory space is not GC'ed.
+
+we say that "() execution context CLOSED IN its outer variables"
+
+Closure = 
+    the fenomenon of execution context closing in its outer variables.
+    it isn't something you create
+    it is a feature of the JavaScript programming language
+    
+    
+Another classic example
+------------------------
+
+
+function buildFunctions() {
+    var arr = [];
+
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            function () {
+                console.log(i);
+            }
+        );
+    }
+
+    return arr;
+}
+
+
+var fs = buildFunctions();
+
+// What will these funciton calls output?
+// Remember: the functions are created during the 'for' loop execution
+fs[0]();
+fs[1]();
+fs[2]();
+
+// '3' will be returned EVERY time!
+
+BECAUSE '3' was the last value stored in 'i' when buildFunctions() finished executing, and that is the value that fs funcitons will see when they execute.
+
+
+fs[0]()
+Execution Context  ---> refers to i '3'
+
+buildFunctions()
+execution context
+    i  is 3
+    arr is [f0, f1, f2]
+
+
+GlobalExecution Context
+    buildFunctions(), fs
+
+
+But what if I want to preserve the value of 'i' for each function call?
+-----------------------------------------------------------------------
+    
+    Then I'm going to need a separate execution context for each time when the annonymous funciton was created.
+    
+
+function buildFunctions() {
+     var arr = [];
+
+     for (var i = 0; i < 3; i++) {
+         arr.push(
+             (function (j) {
+                 return function () {
+                     console.log(j);
+                 }
+             })(i)
+         );
+     }
+
+     return arr;
+ }
+
+
+ var fs = buildFunctions();
+ fs[0]();
+ fs[1]();
+ fs[2]();
+
+
+This time, inside of the push() call we are executing a funciton (not just creating an anonymous function), and that function when it executes, returns a new function which is stored in the arr array.
+
+Now, when fs[?]() functions execute, they can reference variable 'j' which is in the execution context for the IIFE that created them.
+
+
 
 
 ==========================================================================
