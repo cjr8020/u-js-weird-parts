@@ -1,23 +1,24 @@
 'use strict';
 
-function buildFunctions() {
-    var arr = [];
 
-    for (var i = 0; i < 3; i++) {
-        arr.push(
-            (function(j){
-                return function(){
-                    console.log(j);
-                }
-            })(i)
-        );
+function makeGreeting(language) {
+
+    return function(firstname, lastname){
+
+        if (language === 'en') {
+            console.log('Hello ' + firstname + ' ' + lastname);
+        }
+
+        if (language === 'es') {
+            console.log('Hola ' + firstname + ' ' + lastname);
+        }
+
     }
-
-    return arr;
 }
 
 
-var fs = buildFunctions();
-fs[0]();
-fs[1]();
-fs[2]();
+var greetEnglish = makeGreeting('en');
+var greetSpanish = makeGreeting('es');
+
+greetEnglish('john', 'doe');
+greetSpanish('john', 'doe');

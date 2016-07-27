@@ -607,6 +607,45 @@ This time, inside of the push() call we are executing a funciton (not just creat
 Now, when fs[?]() functions execute, they can reference variable 'j' which is in the execution context for the IIFE that created them.
 
 
+Framework Aside - Function Factories
+-------------------------------------
+
+Here, 'language' variable is passed into the outer function so that when the inner function executes, the value of 'language' gets trapped in the closure.    
+    
+
+function makeGreeting(language) {
+
+    return function (firstname, lastname) {
+
+        if (language === 'en') {
+            console.log('Hello ' + firstname + ' ' + lastname);
+        }
+
+        if (language === 'es') {
+            console.log('Hola ' + firstname + ' ' + lastname);
+        }
+
+    }
+}
+
+var greetEnglish = makeGreeting('en');
+var greetSpanish = makeGreeting('es');
+
+greetEnglish('john', 'doe');
+greetSpanish('john', 'doe');
+
+
+
+
+makeGreeting() execution context language = 'es'
+makeGreeting() execution context language = 'en'
+
+globa execution context
+greetEnglish
+greetSpanish
+makeGreeting
+
+
 
 
 ==========================================================================
