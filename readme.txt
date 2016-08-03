@@ -646,15 +646,88 @@ greetSpanish
 makeGreeting
 
 
-
-
 ==========================================================================
 
+    Closures and Callbacks
+    **********************
+
+Callback = function you give to another function to execute on your behalf.
 
 
+    
+==========================================================================
+
+  Functions controlling 'this'
+  ****************************
 
 
+Function Execution Context
 
+  variable env
+  'this'
+  outer env
+
+Function
+  special kind of object
+  name property (optional)
+  code property
+  Invocable()
+  All functions have access to these methods:
+  
+call()
+
+  logName.call(person, 'en', 'es');
+
+  call() also lets you decide what the 'this' variable will be
+  and I can pass parameters
+  call() does NOT make a copy of the function, but just executes it.
+
+apply()
+
+  logName.apply(person, ['en', 'es']);
+
+  apply does exactly same thing with one difference:
+  apply wants an array (not a list) of arguments
+
+bind()
+  
+  var logPersonName = logName.bind(person);
+  logPersonName();
+  
+  returns a new object, a copy of the logName function.
+  binds the 'this' object for this function to the object passed in as param.
+  
+
+  Function borrowing
+  ------------------
+
+var person2 = {
+  firstname: 'Jane',
+  lastname: 'Doe'
+}
+
+// borrowing a method from person object and applying on object2 object
+console.log(person.getFullName.apply(person2));  // Jane Doe  
+    
+
+  Function currying
+  -----------------
+  
+- when you break down a function that takes multiple parameters into a series of functions that take part of those parameters.
+- You intentionally make a copy of a function with some parameters "pre-wired"
+- useful in math applications
+
+
+// Fucntion currying
+function multiply(a,b){
+  return a*b;
+}
+
+console.log(multiply(2,3));
+
+var multiplyByTwo = multiply.bind(this, 2); // sets perm value for 'a'  
+
+console.log(multiplyByTwo(3));
 
 
 
