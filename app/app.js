@@ -1,29 +1,38 @@
 'use strict';
 
 
-// Functional Programming
+// prototypal inheritance
 
-var arr1 = [1,2,3];
-
-
-console.log(arr1);
-
-var arr2 = [];
-
-for (var i=0; i<arr1.length; i++){
-  arr2.push(arr1[i] * 2);
+var person = {
+  firstname: 'Default',
+  lastname: 'Default',
+  getFullName: function(){
+    return this.firstname + ' ' + this.lastname;
+  }
 }
 
-console.log(arr2);
+var john = {
+  firstname: 'John',
+  lastname: 'Doe'
+}
 
-// underscore library
+// DO NOT DO THIS - PERFORMANCE PROBLEM - for demo purposes only
 
-var arr6 = _.map(arr1, function(item) {
-  return item * 3;
-});
-console.log(arr6);
+john.__proto__ = person; // john now inherits from person
 
-var arr7 = _.filter([2,3,4,5,6,7], function(item) {
-  return item % 2 === 0;
-});
-console.log(arr7);
+
+console.log(john.getFullName());
+
+var jane = {
+  firstname: 'Jane'
+};
+
+jane.__proto__ = person;
+
+console.log(jane.getFullName());  // Jane Default
+
+
+var a = {}; // empty object
+var b = function(){}; // empty function
+var c = []; // empty array
+

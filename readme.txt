@@ -743,13 +743,90 @@ annotated source is good open source education.
 
 You reference this library by typing "_" - underscore is a valid name in JavaScript.
 
-_.
+  _.map(...)
+  _.filter(...)
 
 
 lodash library
 --------------
 
+==========================================================================
+
+  Object-Oriented Javascript and Prototypal Inheritance
+  *****************************************************
+  
+Inheritance - 
+  one object gets access to the properties and methods of another object
+  
+  
+Prototypal inheritance
+----------------------
+
+what is prototype?
+
+it is a property on every object which is a reference to another object.
+
+Prototype Chain
+---------------
+
+  OBJ 
+   |- prop1
+   |- proto {} - it is a reference to another object
+        |- OBJ2
+            |-prop2
+            etc..
+            
+obj.prop1
+obj.prop2
+obj.prop3
+
+
+// prototypal inheritance
+
+var person = {
+  firstname: 'Default',
+  lastname: 'Default',
+  getFullName: function(){
+    return this.firstname + ' ' + this.lastname;
+  }
+}
+
+var john = {
+  firstname: 'John',
+  lastname: 'Doe'
+}
+
+// DO NOT DO THIS - PERFORMANCE PROBLEM - for demo purposes only  
+
+john.__proto__ = person; // john now inherits from person
+
+
+console.log(john.getFullName());
+
+
+Everything in Javascript is an object or primitive
+---------------------------------------------------
+
+
+var a = {}; // empty object
+var b = function(){}; // empty function
+var c = []; // empty array
+
+
+a.__proto__ // Object{}
+b.__proto__ // function(){}
+c.__proto__ // []
+
+each prototype has more methods defined on it:
+
+c.__proto__.join
+
+c.__proto__.__proto__ // Object{}
 
 
 
+
+
+
+==========================================================================
 
