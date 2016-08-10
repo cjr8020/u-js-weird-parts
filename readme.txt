@@ -730,7 +730,24 @@ var multiplyByTwo = multiply.bind(this, 2); // sets perm value for 'a'
 console.log(multiplyByTwo(3));
 
 
+==========================================================================
 
+  Functional Programming
+  **********************
+  
+  
+underscore.js library
+--------------
+
+annotated source is good open source education.
+
+You reference this library by typing "_" - underscore is a valid name in JavaScript.
+
+_.
+
+
+lodash library
+--------------
 
 
 

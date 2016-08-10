@@ -1,71 +1,29 @@
 'use strict';
 
 
-var person = {
-  firstname: 'John',
-  lastname: 'Doe',
-  getFullName: function() {
-    var fullname = this.firstname + ' ' + this.lastname;
-    return fullname;
-  }
+// Functional Programming
+
+var arr1 = [1,2,3];
+
+
+console.log(arr1);
+
+var arr2 = [];
+
+for (var i=0; i<arr1.length; i++){
+  arr2.push(arr1[i] * 2);
 }
 
-var logName = function(lang1, lang2) {
-  console.log('Logged: ' + this.getFullName());
-}
+console.log(arr2);
 
-//logName(); // app.js:14 Uncaught TypeError: Cannot read property 'getFullName' of undefined
+// underscore library
 
-/*
-  How do I control what 'this' point to?
-*/
+var arr6 = _.map(arr1, function(item) {
+  return item * 3;
+});
+console.log(arr6);
 
-// makes a copy of logname object
-var logPersonName = logName.bind(person);
-
-logPersonName();  // prints 'Logged: John Doe'
-
-// this works too:
-
-var logName = function(lang1, lang2) {
-  console.log('Logged: ' + this.getFullName());
-}.bind(person);
-
-logName();  // prints 'Logged: John Doe'
-
-
-var logName = function(lang1, lang2){
-  console.log('Logged: ' + this.getFullName());
-  console.log('Arguments: ' + lang1 + ' ' + lang2);
-  console.log('-------------------');
-}
-
-var logPersonName = logName.bind(person);
-logPersonName('en');  // Arguments: en undefined
-
-logName.call(person, 'en', 'es');
-
-logName.apply(person, ['en', 'es']);
-
-// Function Borrowing
-// -------------------
-
-var person2 = {
-  firstname: 'Jane',
-  lastname: 'Doe'
-}
-
-// borrowing a method from person object and applying on object2 object
-console.log(person.getFullName.apply(person2));  // Jane Doe
-
-// Fucntion currying
-function multiply(a,b){
-  return a*b;
-}
-
-console.log(multiply(2,3));
-
-var multiplyByTwo = multiply.bind(this, 2); // sets perm value for 'a'
-
-console.log(multiplyByTwo(3));
-
+var arr7 = _.filter([2,3,4,5,6,7], function(item) {
+  return item % 2 === 0;
+});
+console.log(arr7);
